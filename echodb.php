@@ -1,5 +1,6 @@
 <html>
-<head><link rel="stylesheet" href="css/bootstrap.min.css">
+<head>
+	<!-- <link rel="stylesheet" href="css/bootstrap.min.css">
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -26,15 +27,26 @@ if (!$db_selected) {
 $echo= mysql_query("SELECT no,todo,creation FROM todo");
 while($rows=mysql_fetch_array($echo)){
   ?>
-  <div class="row container">
-<div class="col-md-3"></div>
-    <div class="col-md-9">
-  	<h1>
+	<p>
 <?php
 echo $rows['no'].". "  ;
 echo $rows['todo']." was created on ";
 echo $rows['creation'];
+$check=$rows['no'];
+//if(isset($_REQUEST['sub'])){
+if(isset($_REQUEST[$check])){
+	echo "checkbox ";
+	mysql_query("UPDATE todo SET completed = now() WHERE id= $check ");
+	//}
 }
-?></h1>
-</div>
-</div>
+?>
+<form>
+<input type="checkbox" name="<?php echo $check;?>" />
+<?php
+}
+?>
+</p>
+<input class="btn btn-default" type="submit" name ="sub" value="Completed" >
+</form>
+</body>
+</html>
