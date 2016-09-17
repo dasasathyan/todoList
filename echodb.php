@@ -23,7 +23,7 @@ $db_selected = mysql_select_db("todo", $dbConnect);
 if (!$db_selected) {
     die ("Can't use christ : " . mysql_error());
 }
-//echo "\nChrist Database selected\n";
+echo "\nChrist Database selected\n";
 $echo= mysql_query("SELECT no,todo,creation FROM todo");
 while($rows=mysql_fetch_array($echo)){
   ?>
@@ -33,11 +33,9 @@ echo $rows['no'].". "  ;
 echo $rows['todo']." was created on ";
 echo $rows['creation'];
 $check=$rows['no'];
-//if(isset($_REQUEST['sub'])){
 if(isset($_REQUEST[$check])){
-	echo "checkbox ";
-	mysql_query("UPDATE todo SET completed = now() WHERE id= $check ");
-	//}
+	echo "checkbox ". $check;
+	mysql_query("UPDATE todo SET completed=now() WHERE no=$check");
 }
 ?>
 <form>
